@@ -1,0 +1,27 @@
+.tree {
+  text-align: center;
+}
+
+.treeContainer {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.treeTopPosition {
+  position: absolute;
+  top: 24%;
+  left: 21%;
+}
+  
+.treeMiddlePosition {
+  position: absolute;
+  top: 36%;
+  left: 21%;
+}
+
+.treeBottomPosition {
+  position: absolute;
+  top: 51%;
+  left: 21%;
+}

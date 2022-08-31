@@ -1,0 +1,348 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>區塊鏈祖譜</title>
+		<link rel="icon" type="image/png" sizes="16x16" href="images/family.png" />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/add.css">
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style type="text/css">
+			#flotContainer {
+				width: 550px;
+				height: 500px;
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="logo">
+							<span class="icon fa-gem"></span>
+						</div>
+						<div class="content">
+							<div class="inner">
+								<h3>智能合約期末專案</h3>
+								<h1>區塊鏈族譜</h1>
+								<p>Group 11</p>
+								<p id="connect-account"></p>
+								<input type="button" value="Connect MetaMask" class="primary" id="connect-button"/><br><br>
+								<a href="#" class="button" id="create-profile-button">建立個人資料</a>
+							</div>
+						</div>
+						<nav>
+							<ul>
+								<li><a href="javascript:void(0)" id="show-family-disease-button">Geneology</a></li>
+								<li><a href="javascript:void(0)" id="show-workspace-button">WorkSpace</a></li>
+								<li><a href="#about">About</a></li>
+								<!--<li><a href="#elements">Elements</a></li>-->
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+						<!--Geneology-->
+						<article id="familyDisease">
+							<form method="post" action="javascript: void(0)" name="select_form">
+								<h2 class="title">Select member</h2>
+								<div class="field">
+									<select name="accountList" id="accountList">
+									</select>
+									<br>
+									<input type="submit" value="確認" id="account-pick-submit-button" class="button primary small"/>
+								</div>
+							</form>
+							<h3 class="major">TreeGraph</h3>
+							<div id="errorContainer1">無資料</div>
+							<div id="treeContainer" style="display:none;">
+								<img src="images/fatherChild.png" alt="" width="300" height="600" style="margin:auto;"/>
+								<div class="treeTopPosition"><h3>GrandFather</h3></div>
+								<div class="treeMiddlePosition"><h3>Father</h3></div>
+								<div class="treeBottomPosition"><h3>Me</h3></div>
+							</div>
+
+							<br><br>
+							
+							<h3 class="major">FamilyDisease</h3>
+							<h3>顯示各病症遺傳機率</h3>
+							<div id="errorContainer2">無資料</div>
+							<div id = "graphContainer" style="margin:auto;display:none;">
+								<div id="flotContainer"></div>
+							</div>
+
+						</article>
+
+						<!-- Work -->
+							<article id="work">
+								<h2 class="major">WorkSpace</h2>
+								<span class="image main"><img src="images/work.png" alt="" /></span>
+								
+								<form method="post" action="javascript: void(0)" name="update_form">
+									<input type="button" value="更新資料" id="update" onclick="showDiv(this.id)"/>
+									<div id="updateInput" class="fields" style="display:none">
+										<div class="field">
+											<label for="memberID">MemberID</label>
+											<input type="text" name="memberID" id="update_memberID" value="" placeholder="請輸入使用者ID" required="required"/>
+											<label for="name">name</label>
+											<input type="text" name="name" id="update_name" value="" placeholder="請輸入名稱" required="required"/>
+											<label for="birthdate">birthdate</label>
+											<input type="text" name="birthdate" id="update_birthdate" value="" placeholder="請輸入生日" required="required"/>
+											<label for="phone">phone</label>
+											<input type="text" name="phone" id="update_phone" value="" placeholder="請輸入電話" required="required"/>
+											<label for="disease">Disease</label>
+											<select name="disease" id="update_disease">
+												<option value="0">無</option>
+												<option value="1">癌症</option>
+												<option value="2">心血管疾病</option>
+												<option value="3">慢性疾病</option>
+												<option value="4">其他</option>
+											</select>
+											<br>
+											<input type="submit" value="確認送出" id="update-submit-button" class="button primary small" />
+										</div>
+									</div>
+								</form>
+
+								<form method="post" action="javascript: void(0)" name="creates_form">
+									<input type="button" value="建立祖譜" id="create" onclick="showDiv(this.id)"/>	
+									<div id="createInput" class="fields" style="display:none">
+										<div class="field half">
+											<br>
+											<input type="submit" value="確認送出" id="create-submit-button" class="button primary small"/>
+										</div>
+									</div>
+								</form>
+
+								<form method="post" action="javascript: void(0)" name="request_form">
+									<input type="button" value="申請加入祖譜" id="request" onclick="showDiv(this.id)"/> <!--request-->
+									<div id="requestInput" class="fields" style="display:none">
+										<div class="field half">
+											<label for="memberID">MemberID</label>
+											<input type="text" name="memberID" id="request_memberID" value="" placeholder="請輸入使用者ID" required="required"/>
+											<label for="TreeID">TreeID</label>
+											<input type="text" name="treeID" id="request_treeID" value="" placeholder="請輸入祖譜ID" required="required"/>
+											<br>
+											<input type="submit" value="確認送出" id="request-submit-button" class="button primary small" />
+										</div>
+									</div>
+								</form>
+
+								<form method="post" action="javascript: void(0)" name="setfather_form">
+									<input type="button" value="設立父節點" id="setChildToFather" onclick="showDiv(this.id)"/> <!--request-->
+									<div id="setChildToFatherInput" class="fields" style="display:none">
+										<div class="field half">
+											<label for="childID">Child MemberID</label>
+											<input type="text" name="childID" id="setChildToFather_childID"value="" placeholder="請輸入子ID" required="required"/>
+											<label for="fatherID">Father MemberID</label>
+											<input type="text" name="fatherID" id="setChildToFather_fatherID" value="" placeholder="請輸入父ID" required="required"/>
+											<br>
+											<input type="submit" value="確認送出" id="setfather-submit-button" class="button primary small" />
+										</div>
+									</div>
+								</form>
+								
+								<form method="post" action="javascript: void(0)" name="search_form">
+									<input type="button" value="搜尋使用者" id="search" onclick="showDiv(this.id)"/>  <!--selectById-->
+									<div id="searchInput" class="fields" style="display:none">
+										<div class="field">
+											<label for="memberID">MemberID</label>
+											<input type="text" name="memberID" id="search_memberID" value="" placeholder="請輸入使用者ID" required="required"/>
+											<div id="search-field"></div>
+											<div id="search-result-field">
+												<div id="search-treeId-field"></div>
+												<div id="search-memberId-field"></div>
+												<div id="search-name-field"></div>
+												<div id="search-account-field"></div>
+												<div id="search-birthday-field"></div>
+												<div id="search-phone-field"></div>
+												<div id="search-disease-field"></div>
+											</div>
+											<br>
+											<input type="submit" value="確認送出" id="search-submit-button" class="button primary small" />
+										</div>
+									</div>
+								</form>
+								
+								<form method="post" action="javascript: void(0)" name="manage_form">
+									<input type="button" value="查看代理帳號" id="manage" onclick="showDiv(this.id)"/> 
+									<div id="manageInput" class="fields" style="display:none">
+										<div class="field">
+											<div id="manage-field"></div>
+											<br>
+											<input type="submit" value="確認送出" id="manage-submit-button" class="button primary small" required="required"/>
+										</div>
+									</div>
+								</form>
+
+								<form method="post" action="javascript: void(0)" name="getRequest_form">
+                                    <input type="button" value="查看申請加入Tree名單" id="getRequest" onclick="showDiv(this.id)"/>  <!--destory-->
+                                    <div id="getRequestInput" class="fields" style="display:none">
+                                        <div class="field">
+											<div id="getRequest-field"></div>
+                                            <br>
+                                            <input type="submit" value="確認送出" id="getRequest-submit-button" class="button primary small" />
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <form method="post" action="javascript: void(0)" name="acceptRequest_form">
+                                    <input type="button" value="允許申請" id="acceptRequest" onclick="showDiv(this.id)"/>  <!--destory-->
+                                    <div id="acceptRequestInput" class="fields" style="display:none">
+                                        <div class="field">
+                                            <label for="memberID">MemberID</label>
+                                            <input type="text" name="memberID" id="acceptRequest_memberID" value="" placeholder="請輸入使用者ID" required="required"/>
+                                            <label for="treeID">TreeID</label>
+                                            <input type="text" name="treeID" id="acceptRequest_treeID" value="" placeholder="請輸入祖譜ID" required="required"/>
+                                            <br>
+                                            <input type="submit" value="確認送出" id="acceptRequest-submit-button" class="button primary small" />
+                                        </div>
+                                    </div>
+                                </form>
+								
+								<form method="post" action="javascript: void(0)" name="managememberTransfer_form">
+									<input type="button" value="代理權轉移" id="memberTransfer" onclick="showDiv(this.id)"/> <!--approve-->
+									<div id="memberTransferInput" class="fields" style="display:none">
+										<div class="field half">
+											<label for="memberID">MemberID</label>
+											<input type="text" name="memberID" id="memberTransfer_memberID" value="" placeholder="代理使用者ID" required="required"/>
+											<label for="transferTo">transferTo</label>
+											<input type="text" name="transferTo" id="memberTransfer_to" value="" placeholder="接受轉移之使用者ADDRESS" required="required"/>
+											<br>
+											<input type="submit" value="確認送出" id="member-transfer-submit-button" class="button primary small" />
+										</div>
+									</div>
+								</form>
+								
+								<form method="post" action="javascript: void(0)" name="destory_form">
+									<input type="button" value="刪除帳號" id="destory" onclick="showDiv(this.id)"/>  <!--destory-->
+									<div id="destoryInput" class="fields" style="display:none">
+										<div class="field">
+											<label for="memberID">MemberID</label>
+											<input type="text" name="memberID" id="destory_memberID" value="" placeholder="請輸入使用者ID" required="required"/>
+											<br>
+											<input type="submit" value="確認送出" id="destory-submit-button" class="button primary small" />
+										</div>
+									</div>
+								</form>
+							</article>
+
+						<!-- About -->
+							<article id="about">
+								<h2 class="major">About</h2>
+								<span class="image main"><img src="images/team.jpg" alt="" /></span>
+								<h4>110-2智能合約撰寫期末小組專案</h4>
+								<h3>Group Member</h3>
+								<h4>電資三 108820005 洪德易<br>
+									電資三 108820020 單綿恆<br>
+									電資三 108820041 賀國成<br>
+									電資三 108820043 洪子翔<br>
+									資材三甲 108AB0033 呂鎧亦<br>
+									資材三甲 108AB056 何榮偉
+								</h4>
+								
+
+							</article>
+
+						<!-- add member -->
+						<article id="addMember">
+							<h2 class="major">JOIN NOW!</h2>
+							<form method="post" action="javascript: void(0)" name="create_form">
+								<div class="fields">
+									<div class="field">
+										<label for="name">Name</label>
+										<input type="text" name="name" id="name" placeholder="洪小明" required="required"/>
+									</div>
+									<div class="field half">
+										<label for="birthdate">Birthdate</label>
+										<input type="text" name="birthdate" id="birthdate" placeholder="2000/12/07" required="required"/>
+									</div>
+									<div class="field half">
+										<label for="email">Phone</label>
+										<input type="text" name="phone" id="phone" placeholder="0912345678" required="required"/>
+									</div>
+									<div class="field">
+										<label for="disease">Disease</label>
+										<select name="disease" id="disease">
+											<option value="0">無</option>
+											<option value="1">癌症</option>
+											<option value="2">心血管疾病</option>
+											<option value="3">慢性疾病</option>
+											<option value="4">其他</option>
+										</select>
+									</div>
+								</div>
+								<div class="center">
+									<input type="checkbox" id="checked" name="checked">
+									<label for="checked">Data Confirm</label>
+								</div>
+								<br>
+								<ul class="actions">
+									<li><input type="submit" value="ADD" class="primary" id="add-button"/></li>
+									<li><input type="reset" value="Reset" /></li>
+								</ul>
+							</form>
+							
+						</article>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<p class="copyright">110-2智能合約撰寫期末小組專案</p>
+					</footer>
+
+			</div>
+
+		<!-- BG -->
+			<div id="bg"></div>
+
+		<!-- Scripts -->
+			<script type="module" src="assets/js/action.js"></script>
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.3/web3.min.js"></script>
+			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+			<script src="assets/js/jquery.flot.min.js"></script>
+			<script src="assets/js/jquery.flot.pie.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script>
+				function showGaphPie() {
+				  var treeDiv = document.getElementById("treeContainer");
+				  var graphDiv = document.getElementById("graphContainer");
+				  if (treeDiv.style.display == "none") {
+					treeDiv.style.display = "block";
+					graphDiv.style.display = "block";
+				  }
+				}
+				function showDiv(clickedID) {
+				  var clickedBtn = document.getElementById(clickedID);
+				  targetID = clickedID + "Input"
+				  var targetDiv = document.getElementById(targetID);
+				  if (targetDiv.style.display == "none") {
+					targetDiv.style.display = "block";
+					clickedBtn.className = "primary"
+				  } else {
+					targetDiv.style.display = "none";
+					clickedBtn.className = "button"
+				  }
+				}
+				function buttonClassChange(clickedID) {
+				  var clickedBtn = document.getElementById(clickedID);
+				  if (clickedBtn.className == "button") {
+					clickedBtn.className = "primary"
+				  } else {
+					clickedBtn.className = "button"
+				  }
+				}
+			</script>
+	</body>
+</html>
